@@ -317,7 +317,7 @@ anderen Geräten weiter: ohne Installation, über VPN und andere Netze
 | Delay (Quelle verzögert neu senden) | Gehört in lmix; User 2026-10-28 |
 | Support Bundle | Vorerst nicht nötig; User 2026-10-28 |
 | Eigene Umsetzung des NDI-Protokolls | Proprietär; nur über das SDK (TCR.2) |
-| KVM für OMT über eigene Metadaten | Kein Standard; vorläufig, bis T-E.4 entschieden ist |
+| KVM für OMT über eigene Metadaten | Kein Standard in OMT; User 2026-10-28 (T-E.4) |
 
 ---
 
@@ -333,13 +333,13 @@ anderen Geräten weiter: ohne Installation, über VPN und andere Netze
 | T-E.3 | Engine | GStreamer direkt: NDI über `ndisrc`/`ndisink` (gst-plugins-rs), OMT über ein eigenes Element `omtsrc`/`omtsink` (§6.3) |
 | T-E.5 | NDI-SDK und Marken | SDK-Nutzung in Software ist in Ordnung (wie DistroAV für OBS); Laufzeit nicht mitliefern; Markenhinweis in README und Über-Dialog; englische Namen, auch wenn einige wie in den NDI Tools heißen (TCR.3) |
 | T-E.6 | Vorschläge aus der Analyse | Multiview als Option des Monitors (TMO.14–17); Converter, Scopes, Web Viewer als eigene Werkzeuge (§3.12–3.14); Video-Schleife in Test Patterns (TTP.8); Player, Graphics, Delay, Support Bundle nicht (§5); Tally, PTZ, Delay und Graphics gehören zu lmix |
+| T-E.4 | KVM über OMT | Ausgeschlossen (TSC.5 nur NDI, §5) |
 | T-E.7 | Repo | Eigenes Repo `lmix-tools` (Gitea, Spiegel auf GitHub); CI, Review und Regeln wie lmix |
 
 ### 6.2 Offen
 
 | # | Frage | Vorschlag |
 |---|---|---|
-| T-E.4 | KVM über OMT | Ausgeschlossen, bis OMT einen Metadaten-Standard dafür hat; ggf. dort vorschlagen |
 | T-E.8 | Aufteilung der gemeinsamen Teile (§6.3) | Wie in §6.3 vorgeschlagen |
 
 ### 6.3 Gemeinsamer Code mit lmix (Vorschlag zu T-E.8)
