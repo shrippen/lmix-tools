@@ -50,6 +50,7 @@ NDI Tools statt vMix:
 | **Recorder** | Eine oder mehrere Quellen ohne Neukodierung aufnehmen | NDI Record (SDK) |
 | **Converter** | NDI ↔ OMT ↔ SRT/RTMP/WebRTC/SDI/Kamera | — (lmix) |
 | **Scopes** | Waveform, Vektorskop, Lautheit einer Quelle | — (lmix) |
+| **Web Viewer** | Netzquellen als WebRTC im Browser anderer Geräte | — (lmix) |
 | **Router** | Virtuelle Quellen auf echte Quellen schalten | Router (später) |
 | **Access Manager** | Gruppen, Netzwerkkarte, Multicast, Discovery-Server je Rechner | Access Manager (später) |
 | **Bridge** | Netzquellen über WAN verbinden | Bridge (später) |
@@ -164,6 +165,7 @@ Remote), **X** ausgeschlossen (§5). **MS**: Meilenstein (§7). Stand: alle –
 | TTP.5 | HDR-Testbild (PQ/HLG) | K | T3 |
 | TTP.6 | Lippensynchron-Test: Blitz und Klick im selben Bild, Gegenstück zur Messung in TAN.5 **(lmix)** | S | T2 |
 | TTP.7 | Name, Uhrzeit und Bildzähler im Bild (erkennt eingefrorene Strecken) **(lmix)** | S | T1 |
+| TTP.8 | Video-Datei in Schleife als Testsignal, mit Ton; echte Bewegung zeigt Kompressionsfehler, die ein Testbild nicht zeigt **(lmix)** | S | T2 |
 
 ### 3.4 Screen Capture (TSC)
 
@@ -269,20 +271,21 @@ Aus den Vorschlägen übernommen (User 2026-10-28).
 | TSP.3 | Neben dem Bild im Monitor oder als eigene Ansicht; mehrere Quellen nacheinander wählbar | S | T3 |
 | TSP.4 | Lautheitsmessung über eine Sendung protokollieren (CSV) | K | T3 |
 
-### 3.14 Vorschläge, offen (TVS) (lmix)
+### 3.14 Web Viewer (TWV) (lmix)
 
-Nebenprodukt der Analyse, noch nicht entschieden (§6, T-E.6). Erklärung:
-<https://claude.ai/artifact/K9CWNm2xBM4bES8MhUNoq7>. Multiview ist in den
-Monitor aufgegangen (TMO.14–17), Converter und Scopes sind übernommen
-(§3.12, §3.13), Tally und PTZ gehören zu lmix (§5).
+Aus den Vorschlägen übernommen (User 2026-10-28). Der Dienst auf einem
+Rechner empfängt Netzquellen und gibt sie als WebRTC an Browser auf
+anderen Geräten weiter: ohne Installation, über VPN und andere Netze
+(mDNS reicht nicht über Router), mit wenig Bandbreite.
 
-| ID | Werkzeug | Was | Vorschlag |
+| ID | Anforderung | Prio | MS |
 |---|---|---|---|
-| TVS.3 | **Player** | Datei oder Playlist als Quelle | Nicht als Werkzeug: für Zulieferung ist lmix besser. Nur als Option von Test Patterns: Datei als Testsignal (echte Bewegung zeigt Kompressionsfehler) |
-| TVS.4 | **Web Viewer** | Netzquellen im Browser eines anderen Geräts ansehen: der Dienst empfängt und kodiert für WebRTC (WHEP). Ohne Installation, über VPN, mit wenig Bandbreite | K, T3: als Seite der Weboberfläche des Dienstes (wie TMO.11), kein eigenes Werkzeug |
-| TVS.7 | **Graphics** | HTML-Seite oder Titel als Quelle mit Alpha (Bauchbinden, Uhr, Countdown, Zeitcode) | K, T3 |
-| TVS.9 | **Delay** | Quelle um einstellbare Zeit verzögert neu senden (Lippensynchronität, Zeitversatz) | K, T3 |
-| TVS.10 | **Support Bundle** | Ein Befehl sammelt Netz, Quellen, Versionen, Logs für eine Fehlermeldung | K, T2 |
+| TWV.1 | Seite im Browser: Liste der Quellen, die der Dienst sieht; eine Quelle wählen und mit Ton ansehen (WHEP) | S | T2 |
+| TWV.2 | Mehrere Zuschauer derselben Quelle teilen eine Kodierung; eine Quelle wird nur kodiert, solange jemand zusieht | S | T2 |
+| TWV.3 | Kodierung per GPU, wo vorhanden; Auflösung und Datenrate je Quelle begrenzbar | S | T2 |
+| TWV.4 | Tally und Name der Quelle auf der Seite | K | T3 |
+| TWV.5 | Zugang: standardmäßig nur LAN (NFA.12), Freigabe über Passwort oder Link mit Token | S | T2 |
+| TWV.6 | Mehrere Quellen als Raster auf der Seite (wie TMO.14, mit Proxy) | K | T3 |
 
 ---
 
@@ -309,6 +312,10 @@ Monitor aufgegangen (TMO.14–17), Converter und Scopes sind übernommen
 | Plugins für Premiere Pro, After Effects, Final Cut Pro | Nicht unter Linux; Ersatz TPL.2 |
 | Eigene Handy-Apps (Kamera, Bildschirm) | Ersatz über den Browser (TLA.4, TCV.2 mit WHIP) |
 | Tally-Anzeige, PTZ-Pult | Aufgabe von lmix (Web-Seite Tally WEB.3, Tally-Geräte PER.1, PTZ PER.2); User 2026-10-28 |
+| Player (Datei als Quelle) | Zulieferung macht lmix; Testsignal aus Datei in Test Patterns (TTP.8); User 2026-10-28 |
+| Graphics (HTML/Titel als Quelle) | Aufgabe einer zweiten lmix-Instanz; User 2026-10-28 |
+| Delay (Quelle verzögert neu senden) | Gehört in lmix; User 2026-10-28 |
+| Support Bundle | Vorerst nicht nötig; User 2026-10-28 |
 | Eigene Umsetzung des NDI-Protokolls | Proprietär; nur über das SDK (TCR.2) |
 | KVM für OMT über eigene Metadaten | Kein Standard; vorläufig, bis T-E.4 entschieden ist |
 
@@ -325,6 +332,7 @@ Monitor aufgegangen (TMO.14–17), Converter und Scopes sind übernommen
 | T-E.2 | Verhältnis zu lmix | Leichtgewichtig, **ohne lmix-core und ohne strom** (TNF.2); so viel Code wie sinnvoll gemeinsam mit lmix (§6.3). Aus lmix heraus aufrufbar (TGM.8) |
 | T-E.3 | Engine | GStreamer direkt: NDI über `ndisrc`/`ndisink` (gst-plugins-rs), OMT über ein eigenes Element `omtsrc`/`omtsink` (§6.3) |
 | T-E.5 | NDI-SDK und Marken | SDK-Nutzung in Software ist in Ordnung (wie DistroAV für OBS); Laufzeit nicht mitliefern; Markenhinweis in README und Über-Dialog; englische Namen, auch wenn einige wie in den NDI Tools heißen (TCR.3) |
+| T-E.6 | Vorschläge aus der Analyse | Multiview als Option des Monitors (TMO.14–17); Converter, Scopes, Web Viewer als eigene Werkzeuge (§3.12–3.14); Video-Schleife in Test Patterns (TTP.8); Player, Graphics, Delay, Support Bundle nicht (§5); Tally, PTZ, Delay und Graphics gehören zu lmix |
 | T-E.7 | Repo | Eigenes Repo `lmix-tools` (Gitea, Spiegel auf GitHub); CI, Review und Regeln wie lmix |
 
 ### 6.2 Offen
@@ -332,7 +340,6 @@ Monitor aufgegangen (TMO.14–17), Converter und Scopes sind übernommen
 | # | Frage | Vorschlag |
 |---|---|---|
 | T-E.4 | KVM über OMT | Ausgeschlossen, bis OMT einen Metadaten-Standard dafür hat; ggf. dort vorschlagen |
-| T-E.6 | Übrige Vorschläge (TVS, §3.14) | Player nur als Option von Test Patterns, Web Viewer als Seite des Dienstes (K); Graphics, Delay, Support Bundle offen. Entschieden (User 2026-10-28): Multiview als Teil des Monitors, Converter, Scopes übernommen; Tally und PTZ zu lmix |
 | T-E.8 | Aufteilung der gemeinsamen Teile (§6.3) | Wie in §6.3 vorgeschlagen |
 
 ### 6.3 Gemeinsamer Code mit lmix (Vorschlag zu T-E.8)
@@ -383,11 +390,12 @@ NDI-Gerät (Hardware-Abnahme).
 ### T2 — Arbeitsplatz
 
 Screen Capture, Virtual Camera, Recorder, Analysis, Monitor mit PTZ,
-Kiosk, Fernbedienung und Multiview, Discovery-Server, API, Converter.
+Kiosk, Fernbedienung und Multiview, Discovery-Server, API, Converter,
+Web Viewer.
 
 ### T3 — Erweiterungen
 
-KVM, HDR, Scopes, Anbindungen (TPL), übrige Vorschläge (§3.14).
+KVM, HDR, Scopes, Anbindungen (TPL).
 
 ### Später
 

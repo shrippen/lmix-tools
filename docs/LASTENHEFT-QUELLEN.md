@@ -40,7 +40,7 @@ NDI Tools 6.3.2 (2026-04-13). **(lmix)** = ohne Vorbild.
 | TLA.2 | ndi-tools-for-windows/access-manager |
 | TLA.3 | ndi-tools-for-windows/bridge · developing-with-ndi/utilities/bridge-service-for-windows |
 | TLA.4 | ndi-tools-for-windows/remote-discontinued |
-| TMO.14–17, TCV.1–6, TSP.1–4, TVS | (lmix) |
+| TTP.8, TMO.14–17, TCV.1–6, TSP.1–4, TWV.1–6 | (lmix) |
 
 ## Protokolle (§2.2)
 

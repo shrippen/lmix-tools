@@ -14,3 +14,12 @@ einzeln und als Dienst; leichtgewichtig ohne lmix-core; so viel Code wie
 sinnvoll gemeinsam mit lmix; eigenes Repo. NDI-SDK-Nutzung ist in Ordnung.
 Englische Namen der Werkzeuge. Router, Access Manager, Bridge und Remote
 später. Einzelheiten: `LASTENHEFT.md` §6.
+
+## 2026-10-28: Vorschläge aus der Analyse
+
+Entscheidung (User): Multiview wird eine Option des Monitors. Converter,
+Scopes und Web Viewer werden eigene Werkzeuge. Player entfällt; Test
+Patterns spielt dafür auch ein Video in Schleife. Tally, PTZ, Delay und
+Graphics sind Aufgaben von lmix (Graphics über eine zweite
+lmix-Instanz). Support Bundle vorerst nicht. Einzelheiten:
+`LASTENHEFT.md` §3.12–3.14, §5, T-E.6.
