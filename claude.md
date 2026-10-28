@@ -12,7 +12,8 @@ Kommuniziere auf Deutsch, Code, Commits und PR-Texte auf Englisch.
 
 ## Feststehende Entscheidungen (User 2026-10-28, Lastenheft §6.1)
 1. Eine Codebasis, ein Programm `lmix-tools` mit Ansichten; jede Ansicht
-   auch einzeln, mehrfach und ohne Oberfläche als Dienst (T-E.1).
+   auch einzeln, mehrfach und ohne Oberfläche als Dienst (T-E.1). Was ohne
+   Oberfläche läuft, steckt in `lmix-toolsd` ohne Qt (T-E.8).
 2. Leichtgewichtig: kein lmix-core, kein strom; GStreamer direkt (T-E.2/3).
 3. NDI nur über das SDK, zur Laufzeit geladen, nie mitgeliefert. OMT über ein
    eigenes GStreamer-Element `gst-omt`, das auch lmix lädt (T-E.3, T-E.5).
@@ -43,5 +44,7 @@ crates/
   gst-omt/          ← GStreamer-Plugin omtsrc/omtsink/Geräteanbieter
   lmix-netsource/   ← Quellen im Netz finden (NDI + OMT)
   lmix-media-qt/    ← Videofläche, Pegel, Quellenauswahl (cxx-qt + QML)
-  lmix-tools/       ← das Programm (Ansichten, Dienst, Kommandozeile)
+  lmix-tools-core/  ← Werkzeuge ohne Oberfläche (Pipelines, Dienst-API)
+  lmix-toolsd/      ← Programm ohne Qt: Dienst, Kommandozeile, Kiosk
+  lmix-tools/       ← Programm mit Oberfläche (Ansichten)
 docs/               ← Lastenheft, Quellen, Entscheidungen

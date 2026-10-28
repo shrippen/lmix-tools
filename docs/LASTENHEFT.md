@@ -334,15 +334,15 @@ anderen Geräten weiter: ohne Installation, über VPN und andere Netze
 | T-E.5 | NDI-SDK und Marken | SDK-Nutzung in Software ist in Ordnung (wie DistroAV für OBS); Laufzeit nicht mitliefern; Markenhinweis in README und Über-Dialog; englische Namen, auch wenn einige wie in den NDI Tools heißen (TCR.3) |
 | T-E.6 | Vorschläge aus der Analyse | Multiview als Option des Monitors (TMO.14–17); Converter, Scopes, Web Viewer als eigene Werkzeuge (§3.12–3.14); Video-Schleife in Test Patterns (TTP.8); Player, Graphics, Delay, Support Bundle nicht (§5); Tally, PTZ, Delay und Graphics gehören zu lmix |
 | T-E.4 | KVM über OMT | Ausgeschlossen (TSC.5 nur NDI, §5) |
+| T-E.8 | Gemeinsamer Code und Programme | Wie §6.3: gemeinsame Teile mit lmix, zwei Programme aus einer Codebasis (`lmix-toolsd` ohne Qt, `lmix-tools` mit Oberfläche) |
 | T-E.7 | Repo | Eigenes Repo `lmix-tools` (Gitea, Spiegel auf GitHub); CI, Review und Regeln wie lmix |
 
 ### 6.2 Offen
 
 | # | Frage | Vorschlag |
 |---|---|---|
-| T-E.8 | Aufteilung der gemeinsamen Teile (§6.3) | Wie in §6.3 vorgeschlagen |
 
-### 6.3 Gemeinsamer Code mit lmix (Vorschlag zu T-E.8)
+### 6.3 Gemeinsamer Code mit lmix und Programme (T-E.8)
 
 Leitlinie: was beide brauchen, entsteht einmal, und zwar dort, wo es ohne
 den anderen lebt. lmix tools ist das kleinere Projekt und hängt von nichts
@@ -360,8 +360,11 @@ in lmix ab; lmix nimmt die gemeinsamen Teile von hier.
  │                     Quellenauswahl. Heute in lmix console-qt
  │                     (LiveView.qml, bridge.rs); zieht hierher um, sobald die
  │                     Tools es brauchen, lmix nutzt es dann von hier
- ├─ lmix-tools         Das Programm: Ansichten, Dienst, Kommandozeile
- └─ …
+ ├─ lmix-tools-core    Werkzeuge ohne Oberfläche: Pipelines, Dienst-API
+ ├─ lmix-toolsd        Programm ohne Qt: Dienst, Kommandozeile, Kiosk-Monitor
+ │                     (Bild direkt über KMS/GL), Weboberfläche
+ └─ lmix-tools         Programm mit Oberfläche (Qt Quick, Kante): Ansichten,
+                       spricht mit lmix-toolsd oder startet Werkzeuge selbst
  Kante                 alles Allgemeine der Oberfläche (Knöpfe, Meter, Stil)
 ```
 
@@ -373,6 +376,14 @@ in lmix ab; lmix nimmt die gemeinsamen Teile von hier.
   Medienspezifisches (Videofläche, Quellenauswahl) in `lmix-media-qt`.
 - Teile von lmix ziehen erst um, wenn lmix tools sie braucht, je in einem
   PR in beiden Repos (lmix stellt im selben Zug um).
+- **Zwei Programme** (TNF.2): was dauerhaft läuft (Test Patterns, Audio
+  Bridge, Converter, Recorder, Web Viewer, Kiosk-Monitor), läuft in
+  `lmix-toolsd` ohne Qt, als reiner GStreamer-Prozess. Die Oberfläche
+  `lmix-tools` lädt Qt nur dort, wo jemand vor dem Bildschirm sitzt.
+- Erwarteter Bedarf (Schätzung, in T1 messen): `lmix-toolsd` je Werkzeug
+  etwa 20–50 MB Speicher, `lmix-tools` mit Qt Quick/Kirigami etwa
+  80–150 MB, Start unter 1 s. Die Last hängt fast nur am Dekodieren; NDI HX
+  (H.264) auf dem Raspberry Pi 5 ist eng (kein H.264-Decoder in Hardware).
 
 ---
 
