@@ -270,7 +270,7 @@ Entscheidung (§6, T-E.6); Erklärung zum Ankreuzen:
 | TNF.4 | Dauerlauf: Monitor, Test Patterns und Audio Bridge 48 h ohne Drift und Speicherzuwachs | M |
 | TNF.5 | Latenz: Monitor ≤ 2 Bilder über der Protokoll-Latenz; Audio Bridge mit Puffer ab 20 ms einstellbar | S |
 | TNF.6 | Robust: Quelle fällt aus → Rückfallbild und Wiederverbinden; Netzwechsel ohne Neustart | M |
-| TNF.7 | Prüfbarkeit wie NFA.13: Test Patterns → Monitor/Analysis als automatischer Kreistest für beide Protokolle | M |
+| TNF.7 | Prüfbarkeit wie NFA.13: Test Patterns → Monitor (Kennwerte TMO.13, ab T2 Analysis) als automatischer Kreistest für beide Protokolle | M |
 | TNF.8 | Pakete: Flatpak und Distro-Pakete; Dienste als systemd-User- und System-Units | S |
 
 ---
@@ -283,7 +283,7 @@ Entscheidung (§6, T-E.6); Erklärung zum Ankreuzen:
 | Plugins für Premiere Pro, After Effects, Final Cut Pro | Nicht unter Linux; Ersatz TPL.2 |
 | Eigene Handy-Apps (Kamera, Bildschirm) | Ersatz über den Browser (TLA.4, TVS.2 mit WHIP) |
 | Eigene Umsetzung des NDI-Protokolls | Proprietär; nur über das SDK (TCR.2) |
-| KVM für OMT über eigene Metadaten | Kein Standard; erst wenn OMT es festlegt (T-E.4) |
+| KVM für OMT über eigene Metadaten | Kein Standard; vorläufig, bis T-E.4 entschieden ist |
 
 ---
 
@@ -349,7 +349,7 @@ in lmix ab; lmix nimmt die gemeinsamen Teile von hier.
 Discovery (Liste), Monitor mit Hilfen und Kennwerten, Test Patterns mit
 Testton, Audio Bridge, alles für NDI und OMT; das OMT-Element. Abnahme:
 Test Patterns auf Rechner A (NDI und OMT) → Monitor auf Rechner B zeigt
-beide mit Ton, Analysis zeigt keine Aussetzer über 1 h; derselbe Test als
+beide mit Ton, seine Kennwerte (TMO.13) zeigen keine Aussetzer über 1 h; derselbe Test als
 automatischer Kreistest (TNF.7) und gegen vMix 29 (OMT) bzw. ein
 NDI-Gerät (Hardware-Abnahme).
 
