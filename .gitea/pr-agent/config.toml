@@ -1,0 +1,44 @@
+# PR-Agent settings for lmix tools (.gitea/workflows/pr-agent.yml); the rest
+# are PR-Agent's defaults.
+[config]
+git_provider = "gitea"
+response_language = "de-DE"
+max_model_tokens = 128000
+fallback_models = []
+publish_output_progress = false
+# Claude Opus 4.7+ and Claude 5 take no temperature, only adaptive thinking
+# with an effort (Opus 5.5 defaults to medium); the effort applies to other
+# reasoning models too.
+enable_claude_adaptive_thinking = true
+reasoning_effort = "high"
+# The repository rules and the review guide go along as context.
+repo_context_files = ["agent.md", "REVIEW.md"]
+
+[pr_reviewer]
+num_max_findings = 5
+require_can_be_split_review = true
+enable_review_labels_effort = false
+enable_review_labels_security = false
+extra_instructions = """
+You review pull requests of lmix tools: small Linux tools for NDI and
+OMT (monitor, test patterns, screen capture, recorder …), Rust with
+GStreamer, Qt/QML via cxx-qt, and shared crates that lmix uses too.
+The PRs are written by an AI agent; review them as a careful second
+reader, not as their author.
+
+Report only findings that matter:
+- Bugs: a concrete input or state and the wrong result or crash it gives.
+  Name file and line.
+- Security: anything reachable from the network (API, web pages,
+  received streams and metadata) without the checks it needs.
+- Missing tests for new behaviour, and docs (docs/LASTENHEFT,
+  docs/DECISIONS) that the change made wrong.
+- Breaches of the repository rules (agent.md).
+
+Label each finding **Wichtig**, **Kleinigkeit** or **Bestand** as REVIEW.md
+defines them, at the start of its title.
+
+Skip style, naming and formatting (rustfmt and clippy run separately),
+praise, and guesses you cannot back with the diff. When you find
+nothing that matters, say so in one line.
+"""
